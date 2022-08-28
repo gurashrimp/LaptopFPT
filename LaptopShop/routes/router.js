@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const employeeController = require('../components/employee/controller');
+const jwt = require('jsonwebtoken');
+const session = require('express-session');
 
 /* GET EMPLOYEE. */
 router.get("/login", function (req, res, next) {
@@ -7,4 +10,7 @@ router.get("/login", function (req, res, next) {
 });
 
 /* GET PRODUCT. */
+router.get("/home", function (req, res, next) {
+  res.render("home");
+});
 module.exports = router;

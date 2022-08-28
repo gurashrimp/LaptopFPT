@@ -8,8 +8,11 @@ var session = require('express-session');
 const mongoose = require('mongoose');
 
 var router = require('./routes/router');
+var api = require('./routes/api');
 
 var app = express();
+
+require('./components/employee/model');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +38,7 @@ mongoose.connect('mongodb+srv://admin:123@cluster0.laazxgk.mongodb.net/LaptopSho
   .catch(err => console.log('DB Error: ', err));
 
 app.use('/', router);
+app.use('/api', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
