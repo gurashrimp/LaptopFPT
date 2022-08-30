@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import React from "react";
 
@@ -39,7 +40,7 @@ const Home = (props) => {
   };
 
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ContainerTitle}>
           <View style={styles.Title}>
@@ -107,7 +108,7 @@ const Home = (props) => {
           keyExtractor={(item) => Math.random()}
         ></FlatList>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
