@@ -38,7 +38,7 @@ mongoose.connect('mongodb+srv://admin:123@cluster0.laazxgk.mongodb.net/LaptopSho
   .catch(err => console.log('DB Error: ', err));
 
 app.use('/', router);
-app.use('/api', router);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
