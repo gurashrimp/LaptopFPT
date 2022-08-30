@@ -8,10 +8,32 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../user/UserContext';
 
 const Register = (props) => {
   const { navigation } = props;
+  const { onRegister } = useContext(UserContext);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const register = async () => {
+    if (confirmPassword != password) {
+      ToastAndroid.show('Password not match', ToastAndroid.SHORT);
+    }
+
+    const res = await onRegister(username, password, confirmPassword, name, phone, address);
+    if (res == true) {
+      navigation.navigate('Login');
+    }
+    else {
+      ToastAndroid.show('Register failed', ToastAndroid.SHORT);
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.logoView}>
