@@ -19,3 +19,4 @@ router.get("/products", function (req, res, next) {
   res.render("products");
 });
 module.exports = router;
+
