@@ -6,11 +6,15 @@ var logger = require('morgan');
 var session = require('express-session');
 
 const mongoose = require('mongoose');
+require('./components/products/model');
+require('./components/brands/model');
+require('./components/categories/model');
 
 var router = require('./routes/router');
 var api = require('./routes/api');
 
 var app = express();
+app.use(express.static('public'));
 
 require('./components/employee/model');
 
@@ -30,7 +34,7 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-mongoose.connect('mongodb+srv://admin:123@cluster0.laazxgk.mongodb.net/LaptopShop?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://admin:123@cluster0.5j2rp.mongodb.net/LaptopShop?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

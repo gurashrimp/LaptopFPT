@@ -1,11 +1,11 @@
 const productModel = require('./model');
 
 exports.getAllProduct = async () => {
-    return await productModel.find().populate('categoryId', 'brandId');
+    return await productModel.find({}).populate('categoryId brandId');
 }
 
 exports.getProductById = async (id) => {
-    const product = productModel.findById(id).populate('categoryId', 'brandId');
+    const product = productModel.findById(id).populate('categoryId brandId');
     return product;
 };
 

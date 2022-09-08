@@ -1,4 +1,5 @@
 const productService = require('./service');
+const date = require('../../utils/date');
 
 exports.getProducts = async () => {
     try {
@@ -10,6 +11,11 @@ exports.getProducts = async () => {
                 brandId: item.brandId,
                 name: item.name,
                 price: item.price,
+                image: item.image,
+                image1: item.image1,
+                image2: item.image2,
+                image3: item.image3,
+                image4: item.image4,
                 quantity: item.quantity,
                 description: item.description,
                 released: date.format(item.released),
@@ -32,6 +38,11 @@ exports.getProductById = async (id) => {
             brandId: product.brandId,
             name: product.name,
             price: product.price,
+            image: product.image,
+            image1: product.image1,
+            image2: product.image2,
+            image3: product.image3,
+            image4: product.image4,
             quantity: product.quantity,
             description: product.description,
             released: date.format(item.released),
