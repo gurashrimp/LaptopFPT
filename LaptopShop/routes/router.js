@@ -6,15 +6,20 @@ const brandController = require('../components/brands/controller');
 const categoriesController = require('../components/categories/controller');
 const productController = require('../components/products/controller');
 
-var multipleUpload = upload.fields([{name : 'file' , maxCount : 5}]);
+const productModel = require('../components/products/model');
 
-
-/* GET EMPLOYEE. */
+/* EMPLOYEE. */
 router.get("/login", function (req, res, next) {
   res.render("login");
 });
 
-/* GET PRODUCT. */
+router.get("/logout", async function (req, res, next) {
+  req.session.destroy(function (err) {
+    res.redirect('/login');
+  })
+});
+
+/* PRODUCT. */
 router.get("/home", function (req, res, next) {
   res.render("home");
 });
@@ -45,7 +50,7 @@ router.post("/", [upload.single('image')], async function (req, res, next) {
   let { body, file } = req;
   let image = '';
   if (file) {
-    image = `http://192.168.1.8:3000/images/${file.filename}`
+    image = `http://192.168.98.117:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.insert(body);
@@ -61,6 +66,7 @@ router.delete("/:id/delete", async function (req, res, next) {
 router.get("/:id/product_update", async function (req, res, next) {
   const { id } = req.params;
   const product = await productController.getProductById(id);
+console.log('product',product)
   const categories = await categoriesController.getCategoriesSelected(product.categoryId._id);
   const brands = await brandController.getBrandsSelected(product.brandId._id);
   res.render("product_update", { product: product, categories: categories, brands: brands });
@@ -71,12 +77,14 @@ router.post("/:id/product_update", [upload.single('image')], async function (req
   let { body, file, params } = req;
   delete body.image;
   if (file) {
-    let image = `http://10.82.136.252:3000/images/${file.filename}`
+    let image = `http://192.168.98.117:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.update(params.id, body);
-  res.redirect('/home');
+  res.redirect('/products');
 });
+
+/* CUSTOMER. */
 
 module.exports = router;
 

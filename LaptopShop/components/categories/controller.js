@@ -11,7 +11,7 @@ exports.getCategoriesSelected = async (id) => {
         item = {
             _id: item._id,
             name: item.name,
-            selected: item._id == id
+            selected: item._id == id,
         }
         return item;
     })

@@ -5,7 +5,9 @@ exports.getAllProduct = async () => {
 }
 
 exports.getProductById = async (id) => {
-    const product = productModel.findById(id).populate('categoryId brandId');
+    console.log('id product',id);
+    const product =await productModel.findById(id).populate('categoryId brandId');
+    console.log('product service',product);
     return product;
 };
 

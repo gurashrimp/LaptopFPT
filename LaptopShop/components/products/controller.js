@@ -45,11 +45,12 @@ exports.getProductById = async (id) => {
             image4: product.image4,
             quantity: product.quantity,
             description: product.description,
-            released: date.format(item.released),
+            released: date.format(product.released),
         }
         return product;
     }
     catch (error) {
+        console.log('error',error);
         return null;
     }
 }
