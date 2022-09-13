@@ -15,4 +15,17 @@ const onDelete = async (id) => {
     } catch (e) { console.log('Delete error: ', e) }
 }
 
+const onDeleteCustomer = async (id) => {
+    const url = `http://localhost:3000/${id}/deleteCustomer`;
+    const option = {
+        method: 'delete',
+        headers: { 'Content-Type': 'application/json' }
+    }
+    try {
+        await fetchAPI(url, option);
+        window.location.href = '/customers';
+    } catch (e) { console.log('Delete error: ', e) }
+}
+
+
 

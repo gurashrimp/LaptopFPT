@@ -3,6 +3,8 @@ var router = express.Router();
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const employeeController = require('../components/employee/controller');
+const customerController = require('../components/customers/controller');
+const productController = require('../components/products/controller');
 
 
 /* API EMPLOYEE. */
@@ -26,6 +28,42 @@ router.post("/register", async function (req, res, next) {
     } else {
         res.json({ status: false })
     }
+});
+
+/* API CUSTOMER. */
+
+router.post("/customer/login", async function (req, res, next) {
+    const { username, password } = req.body;
+    const customer = await userController.login(username, password);
+    if (customer) {
+        const token = jwt.sign({ id: customer._id, username: customer.username }, 'mykey');
+        res.json({ status: true, id: customer._id, username: customer.username, token });
+    } else {
+        res.json({ status : 404 })
+    }
+});
+
+router.post("/customer/register", async function (req, res, next) {
+    const { username, password, confirmPassword, name, email, phone, address} = req.body;
+    const customer = await customerController.register(username, password, confirmPassword, name, email, phone, address);
+    if (customer, information) {
+        res.json({ status : true })
+    } else {
+        res.json({ status : false })
+    }
+});
+
+/* API PRODUCT. */
+
+router.get("/products", async function (req, res, next) {
+    const products = await productController.getProducts();
+    res.json(products);
+});
+
+router.get("/product/:id", async function (req, res, next) {
+    const { id } = req.params;
+    const product = await productController.getProductById(id);
+    res.json(product);
 });
 
 module.exports = router;

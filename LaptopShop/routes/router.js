@@ -5,8 +5,10 @@ const upload = require('../utils/upload');
 const brandController = require('../components/brands/controller');
 const categoriesController = require('../components/categories/controller');
 const productController = require('../components/products/controller');
+const customerController = require('../components/customers/controller');
 
 const productModel = require('../components/products/model');
+const customerModel = require('../components/customers/model');
 
 /* EMPLOYEE. */
 router.get("/login", function (req, res, next) {
@@ -85,6 +87,27 @@ router.post("/:id/product_update", [upload.single('image')], async function (req
 });
 
 /* CUSTOMER. */
+
+router.get("/customers",async function (req, res, next) {
+  const name = req.query.name;
+  if (name) {
+    customerModel
+      .find({ name: { $regex: new RegExp(name), $options: 'i' } })
+      .then((data) => {
+        res.render("customers", { customers: data });
+      });
+  } else {
+    const data = await customerController.getCustomers();
+    console.log('data',data);
+    res.render("customers", { customers: data });
+  }
+});
+
+router.delete("/:id/deleteCustomer", async function (req, res, next) {
+  const { id } = req.params;
+  await customerController.delete(id);
+  res.json({ result: true });
+});
 
 module.exports = router;
 
