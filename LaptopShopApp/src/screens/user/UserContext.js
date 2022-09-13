@@ -49,10 +49,12 @@ export const UserContextProvider = (props) => {
     <UserContext.Provider
       value={{
         onLogin, onRegister, onGetUser, isLogin , user
-      }}>
+        
+      }}
+      >
       {children}
     </UserContext.Provider>
   )
 }
 
-export default UserContext
+export default UserContextProvider

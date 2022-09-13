@@ -1,13 +1,10 @@
 import axiosInstance from "../../utils/axios";
 import constants from "../../utils/constants";
 
-export const login = async (username , password, name, phone, address ) => {
+export const login = async (username , password) => {
     const data = {
         username: username,
         password: password,
-        name: name,
-        phone: phone,
-        address: address
     }
     const res = await axiosInstance.post(constants.API_LOGIN, data);
     return res;

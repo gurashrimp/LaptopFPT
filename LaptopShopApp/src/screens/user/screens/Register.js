@@ -7,91 +7,137 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../../user/UserContext';
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../user/UserContext";
 
 const Register = (props) => {
   const { navigation } = props;
   const { onRegister } = useContext(UserContext);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const register = async () => {
-    if (confirmPassword != password) {
-      ToastAndroid.show('Password not match', ToastAndroid.SHORT);
+    if (!username || !password || username.trim().length == 0 || password.trim().length == 0 ||
+    !confirmPassword || confirmPassword.trim().length == 0 ) {
+      ToastAndroid.show('Vui long nhap day du thong tin', ToastAndroid.CENTER);
+      return;
     }
-
-    const res = await onRegister(username, password, confirmPassword, name, phone, address);
-    if (res == true) {
-      navigation.navigate('Login');
+    if(password != confirmPassword){
+        ToastAndroid.show('Xac nhan mat khau khong dung', ToastAndroid.CENTER);
     }
-    else {
-      ToastAndroid.show('Register failed', ToastAndroid.SHORT);
+    const res = await onRegister(username, password , confirmPassword , name , phone , address);
+    if (res == false) {
+      ToastAndroid.show('Dang ky khong thanh cong', ToastAndroid.CENTER);
+    }else{
+        navigation.navigate('Login')
     }
   }
   return (
-    <View style={styles.container}>
-      <View style={styles.logoView}>
-        <Image
-          source={require("../../../assets/images/logoApp.jpg")}
-          style={styles.image}
-        ></Image>
-      </View>
-      <View style={styles.inputTextView}>
-        <View>
-          <TextInput
-            style={styles.inputText}
-            placeholderTextColor={"white"}
-            placeholder="Name"
-          ></TextInput>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.logoView}>
           <Image
-            style={styles.imageIcon1}
-            source={require("../../../assets/images/user.png")}
+            source={require("../../../assets/images/logoApp.jpg")}
+            style={styles.image}
           ></Image>
         </View>
+        <View style={styles.inputTextView}>
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="UserName"
+              value={username} onChangeText={setUsername}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon1}
+              source={require("../../../assets/images/user.png")}
+            ></Image>
+          </View>
 
-        <View>
-          <TextInput
-            style={styles.inputText}
-            placeholderTextColor={"white"}
-            placeholder="Password"
-          ></TextInput>
-          <Image
-            style={styles.imageIcon2}
-            source={require("../../../assets/images/pass.png")}
-          ></Image>
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="Password"
+              value={password} onChangeText={setPassword}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon2}
+              source={require("../../../assets/images/pass.png")}
+            ></Image>
+          </View>
+
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="Confirm Password"
+              value={confirmPassword} onChangeText={setConfirmPassword}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon2}
+              source={require("../../../assets/images/pass.png")}
+            ></Image>
+          </View>
+
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="Name"
+              value={name} onChangeText={setName}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon1}
+              source={require("../../../assets/images/user.png")}
+            ></Image>
+          </View>
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="Phone"
+              value={phone} onChangeText={setPhone}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon1}
+              source={require("../../../assets/images/user.png")}
+            ></Image>
+          </View>
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="Address"
+              value={address} onChangeText={setAddress}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon1}
+              source={require("../../../assets/images/user.png")}
+            ></Image>
+          </View>
+
+          <TouchableOpacity onPress={register} style={styles.pressable}>
+            <Text style={styles.pressableText}>Register</Text>
+          </TouchableOpacity>
         </View>
 
-        <View>
-          <TextInput
-            style={styles.inputText}
-            placeholderTextColor={"white"}
-            placeholder="Confirm Password"
-          ></TextInput>
-          <Image
-            style={styles.imageIcon2}
-            source={require("../../../assets/images/pass.png")}
-          ></Image>
+        <View style={styles.signupView}>
+          <Text style={styles.textSignup}>You have an Account ? </Text>
+
+          <Text onPress={() => navigation.goBack()} style={styles.textSignup}>
+            Login
+          </Text>
         </View>
-
-        <TouchableOpacity style={styles.pressable}>
-          <Text style={styles.pressableText}>Register</Text>
-        </TouchableOpacity>
       </View>
-
-      <View style={styles.signupView}>
-        <Text style={styles.textSignup}>You have an Account ? </Text>
-
-        <Text onPress={() => navigation.goBack()} style={styles.textSignup}>
-          Login
-        </Text>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -145,7 +191,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingLeft: 60,
     borderRadius: 37,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
 
   pressable: {

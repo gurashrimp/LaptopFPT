@@ -1,13 +1,15 @@
 import AppNavigation from "./src/screens/navigation/AppNavigation";
-import React from 'react';
-import EditProfile from "./src/screens/product/screens/EditProfile";
-import Login from "./src/screens/user/screens/Login";
-import Register from "./src/screens/user/screens/Register";
-
+import React from "react";
+import { Text } from "react-native";
+import  UserContextProvider from "./src/screens/user/UserContext";
+import  ProductContextProvider  from "./src/screens/product/ProductContext";
 
 export default function App() {
   return (
-    <AppNavigation></AppNavigation>
+    <UserContextProvider>
+    <ProductContextProvider>
+      <AppNavigation></AppNavigation>
+    </ProductContextProvider>
+  </UserContextProvider>
   );
 }
-
