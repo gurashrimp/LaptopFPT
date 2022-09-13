@@ -34,7 +34,7 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/customer/login", async function (req, res, next) {
     const { username, password } = req.body;
-    const customer = await userController.login(username, password);
+    const customer = await customerController.login(username, password);
     if (customer) {
         const token = jwt.sign({ id: customer._id, username: customer.username }, 'mykey');
         res.json({ status: true, id: customer._id, username: customer.username, token });

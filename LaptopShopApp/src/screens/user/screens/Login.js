@@ -38,6 +38,7 @@ const Login = (props) => {
             style={styles.inputText}
             placeholderTextColor={"white"}
             placeholder="Name"
+            value={username} onChangeText={setUsername}
           ></TextInput>
           <Image
             style={styles.imageIcon1}
@@ -50,6 +51,7 @@ const Login = (props) => {
             style={styles.inputText}
             placeholderTextColor={"white"}
             placeholder="Password"
+            value={password} onChangeText={setPassword}
           ></TextInput>
           <Image
             style={styles.imageIcon2}
@@ -57,7 +59,7 @@ const Login = (props) => {
           ></Image>
         </View>
 
-        <TouchableOpacity style={styles.pressable}>
+        <TouchableOpacity onPress={login} style={styles.pressable}> 
           <Text style={styles.pressableText}>Login</Text>
         </TouchableOpacity>
       </View>
