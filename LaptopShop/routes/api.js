@@ -46,7 +46,7 @@ router.post("/customer/login", async function (req, res, next) {
 router.post("/customer/register", async function (req, res, next) {
     const { username, password, confirmPassword, name, email, phone, address} = req.body;
     const customer = await customerController.register(username, password, confirmPassword, name, email, phone, address);
-    if (customer, information) {
+    if (customer) {
         res.json({ status : true })
     } else {
         res.json({ status : false })

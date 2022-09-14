@@ -9,14 +9,25 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import React from "react";
-
+import React, { useState,useContext,useEffect } from "react";
+import FilterModal from "./FilterModal";
+import { ProductContext } from '../ProductContext'
 const List = (props) => {
   const { navigation } = props;
+  // const [showFilterModal, setShowFilterModal]= React.useState(false);
+  const {products,onGetProducts}=useContext(ProductContext);
+  useEffect(async() => {
+    await onGetProducts();
+      
+    return () => {
+      
+    }
+  }, [])
   const renderItem = ({ item }) => {
     const { _id, image, name, price } = item;
+    console.log(item)
     return (
-      <Pressable style={styles.containerView} onPress={() => navigation.navigate('Detail')}>
+      <Pressable style={styles.containerView} onPress={() => navigation.navigate('Detail',{_id:_id})}  key={_id}>
         <View style={styles.ContainerItem}>
           <View style={styles.Product}>
             <View style={styles.ContainerImageItem}>
@@ -27,6 +38,7 @@ const List = (props) => {
               ></Image>
             </View>
             <View style={styles.textItem}>
+          
               <Text style={styles.descriptionProduct}>{name}</Text>
               <Text style={styles.priceproduct}>{price} $</Text>
             </View>
@@ -55,14 +67,22 @@ const List = (props) => {
           ></TextInput>
         </View>
       </View>
+      {/* <FilterModal 
+      onVisible={showFilterModal}
+      onClose={()=>setShowFilterModal(false)}
+      /> */}
+     {
+      products.lengt==0?
+      <Text style={styles.loading}>Đang tải dữ liệu, bạn đợi tí nhé</Text>:
       <FlatList
         style={styles.flatList}
         data={data}
         numColumns={2}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => Math.random()}
+        keyExtractor={item=>item._id}
       ></FlatList>
+     } 
     </View>
   );
 };

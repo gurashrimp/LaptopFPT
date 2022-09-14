@@ -9,9 +9,8 @@ const {isLogin} = useContext(UserContext);
 return (
     <NavigationContainer>
         {
-            isLogin == true ?
-                <ProductNavigation/> :
-                <UserNavigation/>
+                    
+                <ProductNavigation/> 
         }
     </NavigationContainer>
 )

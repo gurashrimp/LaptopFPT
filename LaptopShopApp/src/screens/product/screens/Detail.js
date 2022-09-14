@@ -17,18 +17,27 @@ const Detail = (props) => {
 
   const { navigation, route: { params: { _id } } } = props;
     const {product, onGetProductById} = useContext(ProductContext);
-
-    // useEffect( async () => {
-    //    await onGetProductById(_id);
-    //   return () => {
-    //   }
-    // }, [_id])
-
-    useEffect (() => { async function fetchData() {
-      const response = await onGetProductById(_id);
+    const [number, setNumber] = useState(0);
+    const onNumberChange = (isAdd) => {
+      if (isAdd == true) {
+        setNumber(number + 1);
+      } else if (isAdd == false && number >= 1) {
+        setNumber(number - 1);
+      }
     }
-    fetchData();
-    },[_id]);
+    useEffect(async () => {
+      await onGetProductById(_id);
+     // setproduct(res);
+     return () => {
+       //res;
+     }
+   }, []);
+
+    // useEffect (() => { async function fetchData() {
+    //   const response = await onGetProductById(_id);
+    // }
+    // fetchData();
+    // },[_id]);
     
   const [show, setShow] = useState(false);
   return (
