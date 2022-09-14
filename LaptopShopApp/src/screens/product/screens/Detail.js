@@ -18,11 +18,17 @@ const Detail = (props) => {
   const { navigation, route: { params: { _id } } } = props;
     const {product, onGetProductById} = useContext(ProductContext);
 
-    useEffect( async () => {
-      await onGetProductById(_id);
-      return () => {
-      }
-    }, [])
+    // useEffect( async () => {
+    //    await onGetProductById(_id);
+    //   return () => {
+    //   }
+    // }, [_id])
+
+    useEffect (() => { async function fetchData() {
+      const response = await onGetProductById(_id);
+    }
+    fetchData();
+    },[_id]);
     
   const [show, setShow] = useState(false);
   return (
@@ -57,7 +63,7 @@ const Detail = (props) => {
           </View>
           <View style={styles.PriceQuantityView}>
             <Text style={styles.TextPriceProduct}>{product.price}đ</Text>
-            <Text style={styles.TextQuantityProduct}>{product.quantity}</Text>
+            <Text style={styles.TextQuantityProduct}>Số lượng: {product.quantity}</Text>
           </View>
           <View style={styles.line}></View>
           <View>
@@ -75,7 +81,8 @@ const Detail = (props) => {
             </Pressable>
             {show ? (
               <View style={styles.Description}>
-                {product.description}
+                <Text>{product.description}</Text>
+                
               </View>
             ) : null}
           </View>

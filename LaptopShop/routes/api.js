@@ -60,7 +60,7 @@ router.get("/products", async function (req, res, next) {
     res.json(products);
 });
 
-router.get("/product/:id", async function (req, res, next) {
+router.get("/products/:id/detail", async function (req, res, next) {
     const { id } = req.params;
     const product = await productController.getProductById(id);
     res.json(product);

@@ -25,7 +25,7 @@ export const ProductContextProvider = (props) => {
         const result = await getProductById(id);
         setProduct(result);
     } catch (error) {
-      console.log('dang ky that bai', error);
+      console.log('that bai', error);
     }
   }
   return (

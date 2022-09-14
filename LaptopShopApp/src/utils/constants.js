@@ -4,5 +4,4 @@ export default CONSTANTS = {
     API_LOGIN: "/api/customer/login",
     API_REGISTER: "/api/customer/register",
     API_PRODUCTS_BY: "/api/products",
-    API_PRODUCT_BY: "/api/product/:id",
 }

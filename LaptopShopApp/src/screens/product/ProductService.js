@@ -7,6 +7,6 @@ export const getProducts = async() => {
 }
 
 export const getProductById = async (id) =>{
-  const response = await axiosInstance.get(`${constants.API_PRODUCT_BY}/${id}`);
+  const response = await axiosInstance.get(`${constants.API_PRODUCTS_BY}/${id}/detail`);
   return response;
 }
