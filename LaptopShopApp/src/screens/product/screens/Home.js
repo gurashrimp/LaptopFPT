@@ -10,23 +10,32 @@ import {
   Pressable,
   SafeAreaView,
 } from "react-native";
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { ProductContext } from "../ProductContext";
 
 const Home = (props) => {
   const { navigation } = props;
+  const { products, onGetProducts } = useContext(ProductContext);
+
+  useEffect(async () => {
+    await onGetProducts();
+    return () => {};
+  }, []);
+
   const renderItem = ({ item }) => {
     const { _id, image, name, price } = item;
     return (
-      <Pressable style={styles.containerView} onPress={() => navigation.navigate('Detail')}>
-   
+      <Pressable
+        style={styles.containerView}
+        onPress={() => navigation.navigate("Detail", { _id: _id })}
+      >
         <View style={styles.ContainerItem}>
           <View style={styles.Product}>
             <View style={styles.ContainerImageItem}>
-              
               <Image
                 style={styles.imageItem}
-                resizeMode="cover"
-                source={image}
+                resizeMode={"cover"}
+                source={{ uri: image }}
               ></Image>
             </View>
             <View style={styles.textItem}>
@@ -101,7 +110,7 @@ const Home = (props) => {
 
         <FlatList
           style={styles.flatList}
-          data={data}
+          data={products}
           numColumns={2}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
@@ -197,7 +206,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     marginVertical: 8,
-    marginTop: 8
+    marginTop: 8,
   },
 
   ImageTitle: {
@@ -225,36 +234,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8774A",
   },
 });
-
-var data = [
-  {
-    _id: "1",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "2",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "3",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "4",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "5",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-];

@@ -10,9 +10,20 @@ import {
   Pressable,
   SafeAreaView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import {ProductContext} from '../ProductContext'
 
-const Detail = () => {
+const Detail = (props) => {
+
+  const { navigation, route: { params: { _id } } } = props;
+    const {product, onGetProductById} = useContext(ProductContext);
+
+    useEffect( async () => {
+      await onGetProductById(_id);
+      return () => {
+      }
+    }, [])
+    
   const [show, setShow] = useState(false);
   return (
     <SafeAreaView style={styles.Conatiner}>
@@ -30,14 +41,14 @@ const Detail = () => {
           <View style={styles.ImageProduct}>
             <Image
               style={styles.Image}
-              source={require("../../../assets/images/maydell.jpg")}
+              source={{uri: product.image}} resizeMode={'cover'}
             ></Image>
           </View>
         </View>
         <View style={styles.ContainerInformations}>
           <View style={styles.TextNameProductView}>
             <Text style={styles.TextNameProduct}>
-              DELL XPS 13 9310-70234076
+            {product.name}
             </Text>
             <Image
               style={styles.Star}
@@ -45,8 +56,8 @@ const Detail = () => {
             ></Image>
           </View>
           <View style={styles.PriceQuantityView}>
-            <Text style={styles.TextPriceProduct}>19.888.888đ</Text>
-            <Text style={styles.TextQuantityProduct}>Số lượng: 20</Text>
+            <Text style={styles.TextPriceProduct}>{product.price}đ</Text>
+            <Text style={styles.TextQuantityProduct}>{product.quantity}</Text>
           </View>
           <View style={styles.line}></View>
           <View>
@@ -64,8 +75,7 @@ const Detail = () => {
             </Pressable>
             {show ? (
               <View style={styles.Description}>
-                <Text>Máy Dell siêu bền</Text>
-                <Text>rất chất lượng</Text>
+                {product.description}
               </View>
             ) : null}
           </View>
