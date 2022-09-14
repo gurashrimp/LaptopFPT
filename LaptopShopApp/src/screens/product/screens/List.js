@@ -11,18 +11,16 @@ import {
 } from "react-native";
 import React, { useState,useContext,useEffect } from "react";
 import FilterModal from "./FilterModal";
-import { ProductContext } from '../ProductContext'
+import { ProductContext } from '../ProductContext';
+import { Searchbar } from 'react-native-paper';
 const List = (props) => {
   const { navigation } = props;
   // const [showFilterModal, setShowFilterModal]= React.useState(false);
   const {products,onGetProducts}=useContext(ProductContext);
-  useEffect(async() => {
+  useEffect(async () => {
     await onGetProducts();
-      
-    return () => {
-      
-    }
-  }, [])
+    return () => {};
+  }, []);
   const renderItem = ({ item }) => {
     const { _id, image, name, price } = item;
     console.log(item)
@@ -47,6 +45,7 @@ const List = (props) => {
       </Pressable>
     );
   };
+  const [input, setInput] = useState("");
   return (
     <View style={styles.Conatiner}>
       <View style={styles.TitleView}>
@@ -56,15 +55,26 @@ const List = (props) => {
           <Image source={require("../../../assets/images/bacham.png")}></Image>
         </View>
         <View style={styles.Search}>
-          <Image
+          {/* <Image
             style={styles.ImageSeach}
             source={require("../../../assets/images/search.png")}
-          ></Image>
-          <TextInput
+          ></Image> */}
+          {/* <TextInput
             style={styles.TextSearch}
             placeholderTextColor={"#9098B1"}
             placeholder="Search for products..."
-          ></TextInput>
+            onChangeText={(text) => {
+              setInput(text);
+            }}
+            value={input}
+          ></TextInput> */}
+          <Searchbar style={styles.TextSearch}
+				placeholder="Search"
+				onChangeText={(text) => {
+					setInput(text);
+				}}
+				value={input}
+			/>
         </View>
       </View>
       {/* <FilterModal 
@@ -76,7 +86,7 @@ const List = (props) => {
       <Text style={styles.loading}>Đang tải dữ liệu, bạn đợi tí nhé</Text>:
       <FlatList
         style={styles.flatList}
-        data={data}
+        data={products}
         numColumns={2}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
@@ -175,35 +185,35 @@ const styles = StyleSheet.create({
 });
 
 
-var data = [
-  {
-    _id: "1",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "2",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "3",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "4",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-  {
-    _id: "5",
-    image: require("../../../assets/images/maydell.jpg"),
-    name: "Nike Air Zoom Pegasus 36 Miami",
-    price: 534.33,
-  },
-];
+// var data = [
+//   {
+//     _id: "1",
+//     image: require("../../../assets/images/maydell.jpg"),
+//     name: "Nike Air Zoom Pegasus 36 Miami",
+//     price: 534.33,
+//   },
+//   {
+//     _id: "2",
+//     image: require("../../../assets/images/maydell.jpg"),
+//     name: "Nike Air Zoom Pegasus 36 Miami",
+//     price: 534.33,
+//   },
+//   {
+//     _id: "3",
+//     image: require("../../../assets/images/maydell.jpg"),
+//     name: "Nike Air Zoom Pegasus 36 Miami",
+//     price: 534.33,
+//   },
+//   {
+//     _id: "4",
+//     image: require("../../../assets/images/maydell.jpg"),
+//     name: "Nike Air Zoom Pegasus 36 Miami",
+//     price: 534.33,
+//   },
+//   {
+//     _id: "5",
+//     image: require("../../../assets/images/maydell.jpg"),
+//     name: "Nike Air Zoom Pegasus 36 Miami",
+//     price: 534.33,
+//   },
+// ];

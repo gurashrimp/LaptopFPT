@@ -17,6 +17,7 @@ const Detail = (props) => {
 
   const { navigation, route: { params: { _id } } } = props;
     const {product, onGetProductById} = useContext(ProductContext);
+    const { cart, setCart, updateCart } = useContext(ProductContext);
     const [number, setNumber] = useState(0);
     const onNumberChange = (isAdd) => {
       if (isAdd == true) {
@@ -25,6 +26,10 @@ const Detail = (props) => {
         setNumber(number - 1);
       }
     }
+    const addProductToCart = () => {
+      updateCart(product, number, price, true)
+      ToastAndroid.show('Thêm vào giỏ hàng thành công', ToastAndroid.BOTTOM);
+    };
     useEffect(async () => {
       await onGetProductById(_id);
      // setproduct(res);
