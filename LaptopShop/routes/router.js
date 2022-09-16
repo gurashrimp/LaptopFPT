@@ -52,7 +52,7 @@ router.post("/", [upload.single('image')], async function (req, res, next) {
   let { body, file } = req;
   let image = '';
   if (file) {
-    image = `http://192.168.98.117:3000/images/${file.filename}`
+    image = `http://10.82.150.147:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.insert(body);
@@ -79,7 +79,7 @@ router.post("/:id/product_update", [upload.single('image')], async function (req
   let { body, file, params } = req;
   delete body.image;
   if (file) {
-    let image = `http://192.168.98.117:3000/images/${file.filename}`
+    let image = `http://10.82.150.147:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.update(params.id, body);
