@@ -5,8 +5,8 @@ exports.login = async (username) => {
     return customer;
 }
 
-exports.register = async (username, password, confirmPassword, name, email, phone, address, image) => {
-    const customer = new customerModel({username, password, confirmPassword, name, email, phone, address, image});
+exports.register = async (username, password , name, email, phone, address, image) => {
+    const customer = new customerModel({username, password , name, email, phone, address, image});
     return await customer.save();
 }
 

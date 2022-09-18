@@ -17,6 +17,7 @@ const Register = (props) => {
   const { navigation } = props;
   const { onRegister } = useContext(UserContext);
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [username, setUsername] = useState("");
@@ -32,7 +33,7 @@ const Register = (props) => {
     if(password != confirmPassword){
         ToastAndroid.show('Xac nhan mat khau khong dung', ToastAndroid.CENTER);
     }
-    const res = await onRegister(username, password , confirmPassword , name , phone , address);
+    const res = await onRegister(username, password , confirmPassword , name , email, phone , address);
     if (res == false) {
       ToastAndroid.show('Dang ky khong thanh cong', ToastAndroid.CENTER);
     }else{
@@ -100,6 +101,20 @@ const Register = (props) => {
               source={require("../../../assets/images/user.png")}
             ></Image>
           </View>
+
+          <View>
+            <TextInput
+              style={styles.inputText}
+              placeholderTextColor={"white"}
+              placeholder="Email"
+              value={email} onChangeText={setEmail}
+            ></TextInput>
+            <Image
+              style={styles.imageIcon1}
+              source={require("../../../assets/images/user.png")}
+            ></Image>
+          </View>
+
           <View>
             <TextInput
               style={styles.inputText}

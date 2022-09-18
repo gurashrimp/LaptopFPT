@@ -10,11 +10,12 @@ export const login = async (username , password) => {
     return res;
 }
 
-export const register = async (username , password, confirmPassword, name, phone, address) => {
+export const register = async (username , password, confirmPassword, name, email, phone, address) => {
     const data = {
         username: username,
         password: password,
         confirmPassword: confirmPassword,
+        email: email,
         name: name,
         phone: phone,
         address: address
@@ -23,10 +24,11 @@ export const register = async (username , password, confirmPassword, name, phone
     return res;
 }
 
-export const getUser = async (password, name, phone, address) => {
+export const getUser = async (password, name, email, phone, address) => {
     const data = {
         password: password,
         name: name,
+        email: email,
         phone: phone,
         address: address
     }

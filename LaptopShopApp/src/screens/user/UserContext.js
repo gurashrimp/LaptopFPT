@@ -25,9 +25,9 @@ export const UserContextProvider = (props) => {
     }
   }
 
-  const onRegister = async (username, password, confirmPassword, name, phone, address) => {
+  const onRegister = async (username, password, confirmPassword, name, email, phone, address) => {
     try {
-      const res = await register(username, password, confirmPassword, name, phone, address);
+      const res = await register(username, password, confirmPassword, name, email, phone, address);
       console.log(res)
       return res.status;
     } catch (error) {
