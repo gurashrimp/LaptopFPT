@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Pressable,
   SafeAreaView,
+  ToastAndroid
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import {ProductContext} from '../ProductContext'
@@ -16,8 +17,9 @@ import {ProductContext} from '../ProductContext'
 const Detail = (props) => {
 
   const { navigation, route: { params: { _id } } } = props;
-    const {product, onGetProductById} = useContext(ProductContext);
-    const { cart, setCart, updateCart } = useContext(ProductContext);
+    const {product,onGetProductById, updateCart} = useContext(ProductContext);
+    const [cart, setCart] = useState([]);
+    console.log("cart items", cart)
     const [number, setNumber] = useState(0);
     const onNumberChange = (isAdd) => {
       if (isAdd == true) {
@@ -26,10 +28,6 @@ const Detail = (props) => {
         setNumber(number - 1);
       }
     }
-    const addProductToCart = () => {
-      updateCart(product, number, price, true)
-      ToastAndroid.show('Thêm vào giỏ hàng thành công', ToastAndroid.BOTTOM);
-    };
     useEffect(async () => {
       await onGetProductById(_id);
      // setproduct(res);
@@ -37,7 +35,17 @@ const Detail = (props) => {
        //res;
      }
    }, []);
-
+  
+  if (!product) {
+    return (<></>);
+  }
+  const { name, images, price, size, madein, quantity } = product;
+  const addProductToCart = () => {
+    updateCart(product, number, price, true)
+    ToastAndroid.show('Thêm vào giỏ hàng thành công', ToastAndroid.BOTTOM);
+  };
+   
+   
     // useEffect (() => { async function fetchData() {
     //   const response = await onGetProductById(_id);
     // }
@@ -113,7 +121,22 @@ const Detail = (props) => {
             </View>
           </View>
           <View style={styles.line}></View>
-          <TouchableOpacity style={styles.ButtonAddCart}>
+          <View style={styles.cartProcessContainer}>
+        <View style={styles.processQuantity}>
+          <Text style={styles.quantityText}>Đã chọn {number} sản phẩm</Text>
+        </View>
+        <View style={styles.quantityAction}>
+          <Text onPress={() => onNumberChange(false)} style={styles.removeAction}>-</Text>
+          <Text style={styles.quantity}>{number}</Text>
+          <Text onPress={() => onNumberChange(true)} style={styles.addAction}>+</Text>
+        </View>
+       
+      </View>
+      <View style={styles.processTotal}>
+          <Text style={styles.totalText}>Tạm tính</Text>
+          <Text style={styles.total}>{price*number} đ</Text>
+        </View>
+          <TouchableOpacity style={styles.ButtonAddCart} onPress={addProductToCart}>
             <Text style={{fontSize: 18 , fontWeight: "bold"}}>Thêm vào giỏ hàng</Text>
           </TouchableOpacity>
         </View>
@@ -133,6 +156,59 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#FE5045",
     marginVertical: 16,
+  }, total: {
+    marginTop: 4,
+    textAlign: 'right',
+    fontSize: 24,
+    fontWeight: '500'
+  },
+  totalText: {
+    color: 'black',
+    opacity: 0.6
+  },
+  processTotal: {
+
+  },
+  addAction: {
+    borderRadius: 5,
+    borderWidth: 0.5,
+    width: 27.5,
+    height: 27.5,
+    textAlign: 'center',
+    lineHeight: 20.5,
+    color: 'black',
+    marginHorizontal: 3,
+  },
+  quantity: {
+    marginHorizontal: 3,
+  },
+  removeAction: {
+    borderRadius: 5,
+    borderWidth: 0.5,
+    width: 27.5,
+    height: 27.5,
+    textAlign: 'center',
+    lineHeight: 20.5,
+    color: 'black',
+    marginHorizontal: 3,
+  },
+  quantityAction: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 12
+  },
+  quantityText: {
+    fontSize: 14,
+    opacity: 0.6
+  },
+  processQuantity: {
+
+  },
+  cartProcessContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+
   },
   Description: {
     width: "100%",

@@ -6,10 +6,10 @@ const brandController = require('../components/brands/controller');
 const categoriesController = require('../components/categories/controller');
 const productController = require('../components/products/controller');
 const customerController = require('../components/customers/controller');
-
+const employeeController = require('../components/employee/controller');
 const productModel = require('../components/products/model');
 const customerModel = require('../components/customers/model');
-
+const employeeModel = require('../components/employee/model');
 /* EMPLOYEE. */
 router.get("/login", function (req, res, next) {
   res.render("login");
@@ -47,12 +47,29 @@ router.get("/product_insert", async function (req, res, next) {
   const brands = await brandController.getBrands();
   res.render("product_insert", { categories: categories, brands: brands });
 });
+router.post('/login', async function (req, res, next) {
+  const { username, password } = req.body;
+  // tiến hành đăng nhập
+  const user= await employeeController.login(username,password);
+  // if(user){
+  //   const token=jwt.sign({id:user._id,username:user.username},'mykey');
+  //   req.session.token=token;
+  //   res.redirect('/san-pham');
+  // }else{
+  //   res.redirect('/dang-nhap');
+  // }
+  // nếu thành công thì chuyển qua sản phẩm
+  
+  res.redirect('/home')
 
+  // nếu không thành công
+  // res.redirect('/dang-nhap');
+});
 router.post("/", [upload.single('image')], async function (req, res, next) {
   let { body, file } = req;
   let image = '';
   if (file) {
-    image = `http://10.82.150.147:3000/images/${file.filename}`
+    image = `http://10.22.208.225:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.insert(body);
@@ -79,7 +96,7 @@ router.post("/:id/product_update", [upload.single('image')], async function (req
   let { body, file, params } = req;
   delete body.image;
   if (file) {
-    let image = `http://10.82.150.147:3000/images/${file.filename}`
+    let image = `http://10.22.208.225:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.update(params.id, body);

@@ -35,3 +35,7 @@ export const getUser = async (password, name, email, phone, address) => {
     const res = await axiosInstance.get(constants.API_LOGIN, data);
     return res;
 }
+export const getUserById = async (id) => {
+    const response = await axiosInstance.get(`${constants.API_USER}/${id}/detail`);
+  return response;
+}

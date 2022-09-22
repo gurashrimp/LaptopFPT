@@ -34,10 +34,10 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-mongoose.connect('mongodb+srv://admin:123@cluster0.5j2rp.mongodb.net/LaptopShop?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect('mongodb+srv://gurashrimp:1410nghi@cluster0.9vxm1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {  
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log('DB Connected !'))
   .catch(err => console.log('DB Error: ', err));
 

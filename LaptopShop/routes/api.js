@@ -65,5 +65,14 @@ router.get("/products/:id/detail", async function (req, res, next) {
     const product = await productController.getProductById(id);
     res.json(product);
 });
-
+router.get("/customers", async function (req, res, next) {
+    const { id } = req.params;
+    const customer = await customerController.getCustomers();
+    res.json(customer);
+});
+router.get("/customers/:id/detail", async function (req, res, next) {
+    const { id } = req.params;
+    const customer = await customerController.getCustomerById(id);
+    res.json(customer);
+});
 module.exports = router;

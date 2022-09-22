@@ -1,8 +1,36 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import React, { useState,useContext,useEffect } from "react";
+import { UserContext } from "../../user/UserContext";
+
 
 const Account = (props) => {
   const { navigation } = props;
+  const {user,onGetUser}=useContext(UserContext);
+ 
+  // useEffect(() => {
+  //   // Since the async method Parse.User.currentAsync is needed to
+  //   // retrieve the current user data, you need to declare an async
+  //   // function here and call it afterwards
+  //   async function getCurrentUser() {
+  //     // This condition ensures that username is updated only if needed
+  //     if (name == '') {
+  //       const currentUser = await Parse.User.currentAsync();
+  //       if (currentUser !== null) {
+  //         setName(currentUser.getUsername());
+  //       }
+  //     }
+  //   }
+  //   getCurrentUser();
+  // }, [name]);
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await onGetUser.getData;
+      // ...
+    }
+    fetchData();
+  }, []);
+  const { name, phone, email, password, address, image } = user;
   return (
     <View style={styles.Container}>
       <View style={styles.TitleView}>
@@ -22,13 +50,13 @@ const Account = (props) => {
               ></Image>
             </View>
             <View style={styles.TextView}>
-              <Text style={styles.TextName}>Nguyen Van Hoan</Text>
-              <Text>0347658842</Text>
+              <Text style={styles.TextName}>{user.name}</Text>
+              <Text>{user.phone}</Text>
             </View>
           </View>
           <View style={styles.line}></View>
           <View style={styles.SupportView} >
-            <Text onPress={() => navigation.navigate('EditProfile')} style={styles.SupportText}>Edit Profile</Text>
+            <Text onPress={() => navigation.navigate('EditProfile') } style={styles.SupportText} >Edit Profile</Text>
             <Image
             
               style={styles.SupportImage}

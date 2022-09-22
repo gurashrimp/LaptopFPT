@@ -17,3 +17,13 @@ exports.getAllCustomer = async () => {
 exports.delete = async (id) => {
     await customerModel.findByIdAndDelete(id);
 }
+exports.update = async (id, customer) => { 
+    await customerModel.findByIdAndUpdate(id, customer);
+}
+exports.getCustomerById = async (id) => {
+    console.log('id customer',id);
+    const customer =await customerModel.findById(id);
+    console.log('product service',customer);
+    return customer;
+};
+

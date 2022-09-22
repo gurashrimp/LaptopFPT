@@ -17,9 +17,17 @@ const List = (props) => {
   const { navigation } = props;
   // const [showFilterModal, setShowFilterModal]= React.useState(false);
   const {products,onGetProducts}=useContext(ProductContext);
-  useEffect(async () => {
-    await onGetProducts();
-    return () => {};
+  // useEffect(async () => {
+  //   await onGetProducts();
+  //   return () => {};
+  // }, []);
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await onGetProducts.getData;
+      // ...
+    }
+    fetchData();
   }, []);
   const renderItem = ({ item }) => {
     const { _id, image, name, price } = item;
@@ -32,7 +40,7 @@ const List = (props) => {
               <Image
                 style={styles.imageItem}
                 resizeMode="cover"
-                source={image}
+                source={{uri:image}}
               ></Image>
             </View>
             <View style={styles.textItem}>

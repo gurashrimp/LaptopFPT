@@ -43,12 +43,19 @@ export const UserContextProvider = (props) => {
         console.log( "onGetUser" , error);
     }
 }
-
+const onGetUserById = async (id) =>{
+  try {
+      const result = await getUserById(id);
+      setUser(result);
+  } catch (error) {
+    console.log('that bai', error);
+  }
+}
 
   return (
     <UserContext.Provider
       value={{
-        onLogin, onRegister, onGetUser, isLogin , user
+        onLogin, onRegister, onGetUser, onGetUserById, isLogin , user
         
       }}
       >

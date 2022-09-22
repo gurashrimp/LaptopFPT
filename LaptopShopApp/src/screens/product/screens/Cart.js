@@ -50,6 +50,77 @@ const DeleteModal = (props) => {
     </Modal>
   )
 }
+// const CartItem = (props) => {
+//   const { navigation, route: { params: { cart } } } = props;
+
+// //   const { state, setParams, navigate } = props.navigation;
+// // const params = state.params || {};
+
+// // console.log(params.cart);
+
+//   const {product, onGetProductById} = useContext(ProductContext);
+//   useEffect(async () => {
+//     await onGetProductById(_id);
+//    // setproduct(res);
+//    return () => {
+//      //res;
+//    }
+//  }, []);
+//   const [refresh, setRefresh] = useState(false);
+//   const {updateCart}=useContext(ProductContext);
+//   const { name, image, price, size, madein, quantity } = cart;
+//   const renderItem = ({ item }) => {
+//     // const { product, quantity, price, checked } = item;
+//     return (
+
+//       <View style={styles.itemContainer}>
+//         <View style={styles.checkedContainer}>
+//           {
+//             checked == true ?
+//               <FontAwesome name="check-square" size={24} color="black" /> :
+//               <FontAwesome name="square-o" size={24} color="black" />
+//           }
+
+//         </View>
+//         <View style={styles.imagesContainer}>
+//           <Image style={styles.images} resizeMode='cover' source={{ uri: image }} />
+//         </View>
+//         <View style={styles.infoContainer}>
+//           <View>
+//             <Text>{name}</Text>
+//           </View>
+//           <View>
+//           <Text style={styles.price}>{price}đ</Text> 
+//         </View>
+//         <View style={styles.quantityAction}>
+//           <Text onPress={() => updateCart(product, quantity - 1, price, true)} style={styles.removeAction}>-</Text>
+//           <Text style={styles.quantity}>{quantity}</Text>
+//           <Text onPress={() => updateCart(product, quantity + 1, price, true)} style={styles.addAction}>+</Text>
+//           <Text style={styles.delete}>Xóa</Text>
+          
+//         </View>
+//         </View>
+        
+//       </View>)
+//   }
+//   const reloadData=()=>{
+//     setRefresh=true;
+
+//     setRefresh=false;
+//   }
+//   return (
+//     <FlatList
+//       data={cart}
+//       renderItem={renderItem}
+//       keyExtractor={item => Math.random()
+//       }
+//       style={styles.flatlistContainer}
+//       showsVerticalScrollIndicator={false}
+//       refreshing={refresh}
+//       onRefresh={reloadData}
+//     />
+//   )
+// }
 const CartItem = (props) => {
   const [refresh, setRefresh] = useState(false);
   const {cart}=props;
@@ -68,14 +139,14 @@ const CartItem = (props) => {
 
         </View>
         <View style={styles.imagesContainer}>
-          <Image style={styles.images} resizeMode='cover' source={{ uri: product.images[0] }} />
+          <Image style={styles.images} resizeMode='cover' source={{ uri: product.image }} />
         </View>
         <View style={styles.infoContainer}>
           <View>
             <Text>{product.name}</Text>
           </View>
           <View>
-          <Text style={styles.price}>{product.price}đ</Text>
+          <Text style={styles.price}>{product.price*quantity}đ</Text>
         </View>
         <View style={styles.quantityAction}>
           <Text onPress={() => updateCart(product, quantity - 1, price, true)} style={styles.removeAction}>-</Text>
@@ -106,6 +177,7 @@ const CartItem = (props) => {
     />
   )
 }
+
 
 const Cart = (props) => {
   const [ isShowModal, setIsShowModal ] = useState(false);
@@ -186,7 +258,7 @@ const styles = StyleSheet.create({
     height:200,
   },
   checkoutButton: {
-    backgroundColor: '#007537',
+    backgroundColor: '#FE5045',
     margin: 10,
     height:50,
     borderRadius:4,
@@ -239,7 +311,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 50,
-    backgroundColor: '#007537',
+    backgroundColor: '#FE5045',
     borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
