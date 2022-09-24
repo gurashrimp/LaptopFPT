@@ -56,7 +56,9 @@ router.post("/customer/register", async function (req, res, next) {
 /* API PRODUCT. */
 
 router.get("/products", async function (req, res, next) {
-    const products = await productController.getProducts();
+    const {sort} = req.query;
+    console.log('sortttt',sort);
+    const products = await productController.getProducts(sort);
     res.json(products);
 });
 

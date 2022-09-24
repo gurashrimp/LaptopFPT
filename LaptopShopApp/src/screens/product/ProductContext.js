@@ -10,15 +10,16 @@ export const ProductContextProvider = (props) => {
   const [product, setProduct] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const onGetProducts = async () =>{
+  const onGetProducts = async (sort) =>{
     try {
-        const result = await getProducts();
+        const result = await getProducts(sort);
         setProducts(result);
  
     } catch (error) {
       console.log('dang nhap that bai', error);
     }
   }
+
   const updateCart = (product, quantity, price) => {
     let temp = cart;
     if (cart == 0) {

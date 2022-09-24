@@ -1,10 +1,26 @@
 const productService = require('./service');
 const date = require('../../utils/date');
 
-exports.getProducts = async () => {
+exports.getProducts = async (sort) => {
+    console.log('ham getpr')
     try {
         let products = await productService.getAllProduct();
-        products = products.map((item) => {
+        let newProducts=[];
+
+        console.log("sort: ", sort)
+        if(sort ==='asc'){
+            // sort asc
+            newProducts= products.sort((p1,p2)=>{
+                return p2.price - p1.price;
+            })
+        }else{
+            // sort desc
+            newProducts= products.sort((p1,p2)=>{
+                return p1.price - p2.price;
+            })
+    }
+console.log("product", products)
+        newProducts = newProducts.map((item) => {
             item = {
                 _id: item._id,
                 categoryId: item.categoryId,
@@ -22,7 +38,7 @@ exports.getProducts = async () => {
             }
             return item;
         })
-        return products;
+        return newProducts;
     } catch (error) {
         console.log(error)
         return false;

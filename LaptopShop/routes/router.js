@@ -69,7 +69,7 @@ router.post("/", [upload.single('image')], async function (req, res, next) {
   let { body, file } = req;
   let image = '';
   if (file) {
-    image = `http://10.22.208.225:3000/images/${file.filename}`
+    image = `http://192.168.1.7:3000/images/${file.filename}`
     body = { ...body, image }
   }
   await productController.insert(body);

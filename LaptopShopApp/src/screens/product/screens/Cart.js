@@ -183,6 +183,7 @@ const Cart = (props) => {
   const [ isShowModal, setIsShowModal ] = useState(false);
   const [ isShowDeleteModal, setIsShowDeleteModal ] = useState(false);
   const {cart, setCart}=useContext(ProductContext);
+  console.log('cart',cart);
   const isShowCheckout = () => {
     const items = cart.filter(item => item.checked == true) || [];
     let total = 0;

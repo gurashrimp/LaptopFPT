@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Pressable,
   SafeAreaView,
+  Button,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { ProductContext } from "../ProductContext";
@@ -16,11 +17,22 @@ import { ProductContext } from "../ProductContext";
 const Home = (props) => {
   const { navigation } = props;
   const { products, onGetProducts } = useContext(ProductContext);
+  const [sort, setSort] = useState('asc')
 
   useEffect(async () => {
-    await onGetProducts();
+    await onGetProducts(sort);
     return () => {};
   }, []);
+  
+  const handleSort = async () => {
+    if (sort === 'asc') {
+      setSort('desc')
+      return await onGetProducts('desc')
+    } else {
+      setSort('asc')
+      return await onGetProducts('asc')
+    }
+  }
 
   const renderItem = ({ item }) => {
     const { _id, image, name, price } = item;
@@ -107,7 +119,11 @@ const Home = (props) => {
             </ScrollView>
           </View>
         </View>
-            
+        <TouchableOpacity 
+        style={styles.button}
+           onPress={handleSort}>
+          <Text>{sort == 'asc' ? 'Giảm dần' : 'Tăng dần'}</Text>
+        </TouchableOpacity>
         <FlatList
           style={styles.flatList}
           data={products}
@@ -124,6 +140,10 @@ const Home = (props) => {
 export default Home;
 
 const styles = StyleSheet.create({
+  button: {
+    width: '95%',
+    alignItems: 'flex-end'
+  },
   priceproduct: {
     color: "red",
     fontWeight: "600",
@@ -234,3 +254,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8774A",
   },
 });
+

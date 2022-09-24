@@ -5,7 +5,8 @@ import ProductNavigation from '../product/ProductNavigation';
 import UserNavigation from '../user/UserNavigation';
 import {UserContext} from '../user/UserContext';
 const AppNavigation = (props) => {
-const {isLogin} = useContext(UserContext);
+// const {isLogin} = useContext(UserContext);
+const isLogin= true
 return (
     <NavigationContainer>
         {
